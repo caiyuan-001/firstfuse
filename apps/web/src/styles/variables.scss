@@ -1,0 +1,43 @@
+/**
+ * 全局 SCSS 变量
+ * 在 vite.config.ts 中通过 additionalData 自动注入到每个 SCSS 文件
+ */
+
+// 品牌色
+$cft-primary: #2563eb;
+$cft-primary-light: #3b82f6;
+$cft-primary-dark: #1d4ed8;
+
+$cft-success: #22c55e;
+$cft-warning: #f59e0b;
+$cft-danger: #ef4444;
+$cft-info: #8b5cf6;
+
+// 背景色
+$cft-bg: #f5f7fa;
+$cft-card-bg: #ffffff;
+$cft-dark-bg: #001529;
+
+// 文字色
+$cft-text-primary: #1f2937;
+$cft-text-secondary: #6b7280;
+$cft-text-muted: #9ca3af;
+
+// 边框
+$cft-border: #e5e7eb;
+
+// 间距
+$cft-spacing-xs: 4px;
+$cft-spacing-sm: 8px;
+$cft-spacing-md: 16px;
+$cft-spacing-lg: 24px;
+$cft-spacing-xl: 32px;
+
+// 圆角
+$cft-radius-sm: 4px;
+$cft-radius-md: 8px;
+$cft-radius-lg: 12px;
+
+// 阴影
+$cft-shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08);
+$cft-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);

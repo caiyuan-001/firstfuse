@@ -1,0 +1,19 @@
+{
+  "name": "chuangrongtong",
+  "version": "0.1.0",
+  "private": true,
+  "description": "创融通 FirstFuse - 慧联创融多租户 SaaS 产融对接平台",
+  "scripts": {
+    "dev:web": "pnpm --filter @chuangrongtong/web dev",
+    "build:web": "pnpm --filter @chuangrongtong/web build",
+    "dev:uni": "pnpm --filter @chuangrongtong/uni-app dev:h5",
+    "build:uni": "pnpm --filter @chuangrongtong/uni-app build:h5",
+    "dev": "pnpm dev:web",
+    "build": "pnpm build:web",
+    "clean": "pnpm -r exec rm -rf node_modules dist .turbo"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}

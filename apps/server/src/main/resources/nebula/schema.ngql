@@ -1,0 +1,24 @@
+-- ====================================================================
+-- 创融通 FirstFuse - NebulaGraph 图空间与 Schema（M3）
+-- 用途：在 NAS NebulaGraph 上创建 firstfuse 空间，使 /graph 走 Nebula 数据源。
+-- 执行方式（需用户授权后在 Nebula Console 执行）：
+--   nebula-console -addr 100.66.1.5 -port 9669 -u root -p <password> -f schema.ngql
+-- 启用后需在 apps/server/.env 设置：
+--   NEBULA_ENABLED=true
+--   NEBULA_HOST=100.66.1.5
+--   NEBULA_HTTP_PORT=19669
+-- 说明：未创建空间时保持 NEBULA_ENABLED=false，/graph 自动从 PostgreSQL 派生。
+-- ====================================================================
+
+CREATE SPACE IF NOT EXISTS firstfuse (partition_num = 10, replica_factor = 1, vid_type = FIXED_STRING(64));
+USE firstfuse;
+
+-- 节点：投资机构 / 项目 / 人物（tenant_id 用于多租户隔离）
+CREATE TAG IF NOT EXISTS institution (tenant_id string, name string, region string);
+CREATE TAG IF NOT EXISTS project (tenant_id string, title string, industry string, stage string, status string);
+CREATE TAG IF NOT EXISTS person (tenant_id string, name string, position string);
+
+-- 关系：投资 / 任职 / 项目申请
+CREATE EDGE IF NOT EXISTS invested_in (amount double, investment_date string);
+CREATE EDGE IF NOT EXISTS works_at (position string);
+CREATE EDGE IF NOT EXISTS applies (status string);

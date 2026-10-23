@@ -1,0 +1,63 @@
+# ============================================================
+# 创融通 FirstFuse — 全栈一键启动
+#
+# NAS 上已跑：PostgreSQL 5435 / Redis 6379 / MinIO 9000 / NebulaGraph 9669
+# 所以 docker-compose 只管本项目的两个服务：
+#   - server   :8080   Spring Boot 后端
+#   - web      :80     nginx 托前端构建产物 + /api 反代
+#
+# 后端连接 NAS 的凭据从 apps/server/.env 注入，不需要在容器里再配
+#
+# 用法：
+#   docker compose build          # 构建镜像
+#   docker compose up -d          # 启动
+#   docker compose logs -f server # 看后端日志
+#   docker compose down           # 停
+# ============================================================
+services:
+  server:
+    build:
+      context: apps/server
+      dockerfile: Dockerfile
+    image: firstfuse-server:latest
+    container_name: firstfuse-server
+    restart: unless-stopped
+    env_file:
+      - apps/server/.env
+    ports:
+      - "8080:8080"
+    environment:
+      # 容器内 JVM 内存（按需调整）
+      JAVA_OPTS: "-Xms256m -Xmx512m -XX:+UseZGC -XX:+ZGenerational"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/api/v1/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+    networks:
+      - firstfuse-net
+
+  web:
+    build:
+      context: apps/web
+      dockerfile: Dockerfile
+    image: firstfuse-web:latest
+    container_name: firstfuse-web
+    restart: unless-stopped
+    depends_on:
+      server:
+        condition: service_healthy
+    ports:
+      - "80:80"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    networks:
+      - firstfuse-net
+
+networks:
+  firstfuse-net:
+    driver: bridge

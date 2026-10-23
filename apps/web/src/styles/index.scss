@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// ========== CSS 变量覆盖 ==========
+:root {
+  --cft-primary: #2563eb;
+  --cft-primary-light: #3b82f6;
+  --cft-primary-dark: #1d4ed8;
+  --cft-bg: #f5f7fa;
+  --cft-card-bg: #ffffff;
+  --cft-text-primary: #1f2937;
+  --cft-text-secondary: #6b7280;
+  --cft-text-muted: #9ca3af;
+  --cft-border: #e5e7eb;
+  --cft-success: #22c55e;
+  --cft-warning: #f59e0b;
+  --cft-danger: #ef4444;
+}
+
+// ========== 全局重置 ==========
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--cft-bg);
+  color: var(--cft-text-primary);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+// ========== Element Plus 覆盖 ==========
+.el-button--primary {
+  --el-button-bg-color: var(--cft-primary);
+  --el-button-border-color: var(--cft-primary);
+  &:hover {
+    --el-button-hover-bg-color: var(--cft-primary-light);
+    --el-button-hover-border-color: var(--cft-primary-light);
+  }
+}
+
+// ========== 工具类 ==========
+@layer utilities {
+  .text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .text-truncate-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .scrollbar-thin {
+    &::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #d1d5db;
+      border-radius: 3px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+  }
+}
+
+// ========== AI 加载动画 ==========
+.ai-loading {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  .dot {
+    width: 8px;
+    height: 8px;
+    background: var(--cft-primary);
+    border-radius: 50%;
+    animation: ai-loading-bounce 1.4s infinite ease-in-out both;
+    &:nth-child(1) { animation-delay: -0.32s; }
+    &:nth-child(2) { animation-delay: -0.16s; }
+  }
+}
+
+@keyframes ai-loading-bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
+// ========== 卡片通用样式 ==========
+.cft-card {
+  background: var(--cft-card-bg);
+  border-radius: 8px;
+  border: 1px solid var(--cft-border);
+  padding: 16px 20px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  }
+}
+
+// ========== 状态徽章 ==========
+.status-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 20px;
+}
