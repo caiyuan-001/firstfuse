@@ -294,6 +294,12 @@ const adminRoutes: RouteRecordRaw[] = [
         component: () => import('@/views/admin/BlacklistView.vue'),
         meta: { title: '风控黑名单', icon: 'Warning', requiresAuth: true, roles: ['platform_admin'] },
       },
+      {
+        path: 'logs',
+        name: 'AuditLog',
+        component: () => import('@/views/admin/AuditLogView.vue'),
+        meta: { title: '操作审计日志', icon: 'Document', requiresAuth: true, roles: ['platform_admin'] },
+      },
     ],
   },
 ];

@@ -72,7 +72,7 @@ import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import {
-  DataBoard, OfficeBuilding, CircleCheck, Promotion, Money, Cpu, Reading, Warning,
+  DataBoard, OfficeBuilding, CircleCheck, Promotion, Money, Cpu, Reading, Warning, Document,
   Fold, Expand, User,
 } from '@element-plus/icons-vue';
 import { useUserStore, useAppStore } from '@/store';
@@ -94,6 +94,7 @@ const menuItems = [
   { path: '/admin/ai-config', title: 'AI配置中心', icon: Cpu },
   { path: '/admin/knowledge', title: '知识库管理', icon: Reading },
   { path: '/admin/blacklist', title: '风控黑名单', icon: Warning },
+  { path: '/admin/logs', title: '操作审计日志', icon: Document },
 ];
 
 const activeMenu = computed(() => route.path);
