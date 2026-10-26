@@ -1,6 +1,7 @@
 # ===== 环境变量（含密码，严禁入库）=====
 .env
 *.env
+.env.gitea
 !.env.example
 
 # ===== Node / 前端 =====

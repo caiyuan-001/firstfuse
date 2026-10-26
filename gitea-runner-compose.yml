@@ -1,0 +1,31 @@
+# ============================================================
+# Gitea Actions Runner（act_runner）— 部署在 NAS 上
+#
+# 前提：Gitea 已在 http://100.66.1.5:3000 运行
+# 注册令牌通过 API 获取（一次性，下方 REGISTRATION_TOKEN 已填）
+#
+# 部署（在 NAS 上执行）：
+#   mkdir -p /volume3/docker/act-runner/data
+#   cd /volume3/docker/act-runner
+#   # 把本文件上传为 docker-compose.yml
+#   docker compose up -d
+#
+# 验证：
+#   docker logs act-runner | tail -20
+#   # 应看到 "runner registered" / "poller: requesting tasks"
+# ============================================================
+services:
+  act-runner:
+    image: gitea/act_runner:0.2.13
+    container_name: act-runner
+    restart: always
+    environment:
+      - CONFIG_FILE=/config.yaml
+      - GITEA_INSTANCE_URL=http://100.66.1.5:3000
+      - GITEA_RUNNER_REGISTRATION_TOKEN=hKqjf1rcxyTmZVu64E2ONK7clRjco0TIZrRxa5Th
+      - GITEA_RUNNER_NAME=nas-runner
+      # ubuntu-latest 标签映射到 act 镜像（含 node/java 等常用工具）
+      - GITEA_RUNNER_LABELS=ubuntu-latest:docker://catthehacker/ubuntu:act-22.04
+    volumes:
+      - /volume3/docker/act-runner/data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
